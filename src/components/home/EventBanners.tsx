@@ -11,10 +11,9 @@ import Skeleton from '../shared/Skeleton'
 
 function EventBanners() {
   const { data } = useEventBanners()
-  console.log('🚀 ~ EventBanners ~ data:', data)
 
   return (
-    <div>
+    <div style={{ padding: 24 }}>
       <Swiper spaceBetween={8}>
         {data.map((banner) => {
           return (
@@ -40,8 +39,16 @@ function EventBanners() {
   )
 }
 
+export function BannerSkeleton() {
+  return (
+    <div style={{ padding: 24 }}>
+      <Skeleton width="100%" height={100} style={{ borderRadius: 8 }} />
+    </div>
+  )
+}
+
 export default withSuspense(EventBanners, {
-  fallback: <Skeleton width="100%" height={100} style={{ borderRadius: 8 }} />,
+  fallback: <BannerSkeleton />,
 })
 
 const bannerStyles = css`
