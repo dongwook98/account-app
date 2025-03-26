@@ -1,12 +1,16 @@
 import type { AppProps } from 'next/app'
 import { Global } from '@emotion/react'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import {
+  QueryClientProvider,
+  QueryClient,
+  HydrationBoundary,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import globalStyles from '@styles/globalStyles'
 import Layout from '@shared/Layout'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const client = new QueryClient()
+const queryClient = new QueryClient()
 
 /**
  * 모든 컴포넌트들이 거치는 레이아웃 컴포넌트
@@ -14,11 +18,15 @@ const client = new QueryClient()
  * @returns
  */
 export default function App({ Component, pageProps }: AppProps) {
+  console.log('_app.tsx 실행')
+
   return (
     <Layout>
       <Global styles={globalStyles} />
-      <QueryClientProvider client={client}>
-        <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </HydrationBoundary>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Layout>

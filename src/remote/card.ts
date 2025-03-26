@@ -1,16 +1,19 @@
 import { Card } from '@/models/card'
 import {
   collection,
+  DocumentData,
   getDocs,
   limit,
   query,
-  QuerySnapshot,
+  QueryDocumentSnapshot,
   startAfter,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collection'
 
-export async function getCards(pageParam?: QuerySnapshot<Card>) {
+export async function getCards(
+  pageParam?: QueryDocumentSnapshot<Card | DocumentData>,
+) {
   const cardQuery =
     pageParam == null
       ? query(collection(store, COLLECTIONS.CARD), limit(15))

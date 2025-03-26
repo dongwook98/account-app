@@ -2,6 +2,7 @@ import { css, SerializedStyles } from '@emotion/react'
 
 import Flex from './Flex'
 import Text from './Text'
+import { colors } from '@/styles/colorPalette'
 
 interface ListRowProps {
   left?: React.ReactNode
@@ -40,6 +41,9 @@ export default function ListRow({
 
 const listRowContainerStyles = css`
   padding: 8px 24px;
+  &:hover {
+    background-color: ${colors.gray50};
+  }
 `
 
 const listRowLeftStyles = css`
