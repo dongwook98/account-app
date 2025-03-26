@@ -1,18 +1,22 @@
+import Skeleton from '@/components/shared/Skeleton'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
+
+import dynamic from 'next/dynamic'
+
+// dynamic = React.lazy + Suspense 합친거
+const EventBanners = dynamic(() => import('@components/home/EventBanners'), {
+  loading: () => (
+    <Skeleton width="100%" height={100} style={{ borderRadius: 8 }} />
+  ),
+  ssr: false,
+})
 
 export default function Home() {
   return (
     <Container>
-      <div css={bold}> Hello</div>
+      <EventBanners />
     </Container>
   )
 }
 
-const Container = styled.div`
-  background-color: red;
-`
-
-const bold = css`
-  font-weight: bold;
-`
+const Container = styled.div``
