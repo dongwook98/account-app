@@ -6,9 +6,13 @@ import {
   HydrationBoundary,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { SessionProvider } from 'next-auth/react'
 
 import globalStyles from '@styles/globalStyles'
 import Layout from '@shared/Layout'
+import AuthGuard from '@/components/auth/AuthGuard'
+import Navbar from '@/components/shared/Navbar'
+import { AlertContextProvider } from '@/contexts/AlertContext'
 
 const queryClient = new QueryClient()
 
@@ -23,12 +27,19 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Global styles={globalStyles} />
-      <QueryClientProvider client={queryClient}>
-        <HydrationBoundary state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
-        </HydrationBoundary>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session}>
+        <QueryClientProvider client={queryClient}>
+          <HydrationBoundary state={pageProps.dehydratedState}>
+            <AuthGuard>
+              <AlertContextProvider>
+                <Navbar />
+                <Component {...pageProps} />
+              </AlertContextProvider>
+            </AuthGuard>
+          </HydrationBoundary>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </SessionProvider>
     </Layout>
   )
 }
