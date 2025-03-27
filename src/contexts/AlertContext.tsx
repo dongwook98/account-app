@@ -36,7 +36,7 @@ export function AlertContextProvider({
 
   const $portal_root =
     typeof window === 'undefined'
-      ? null
+      ? null // 서버측에서 렌더링일땐 렌더링 X
       : document.getElementById('root-portal')
 
   const close = useCallback(() => {

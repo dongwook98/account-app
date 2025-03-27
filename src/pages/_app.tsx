@@ -30,12 +30,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
           <HydrationBoundary state={pageProps.dehydratedState}>
-            <AuthGuard>
-              <AlertContextProvider>
+            <AlertContextProvider>
+              <AuthGuard>
                 <Navbar />
                 <Component {...pageProps} />
-              </AlertContextProvider>
-            </AuthGuard>
+              </AuthGuard>
+            </AlertContextProvider>
           </HydrationBoundary>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
