@@ -1,7 +1,9 @@
 import { Card } from '@/models/card'
 import {
   collection,
+  doc,
   DocumentData,
+  getDoc,
   getDocs,
   limit,
   query,
@@ -47,4 +49,13 @@ export async function getSearCards(keyword: string) {
     id: doc.id,
     ...(doc.data() as Card),
   }))
+}
+
+export async function getCard(id: string) {
+  const snapshot = await getDoc(doc(collection(store, COLLECTIONS.CARD), id))
+
+  return {
+    id: snapshot.id,
+    ...(snapshot.data() as Card),
+  }
 }
