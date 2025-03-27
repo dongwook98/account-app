@@ -59,7 +59,7 @@ function ListRowTexts({
   subTitle,
 }: {
   title: React.ReactNode
-  subTitle: React.ReactNode
+  subTitle?: React.ReactNode
 }) {
   return (
     <Flex direction="column">
