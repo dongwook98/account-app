@@ -7,6 +7,7 @@ import {
   query,
   QueryDocumentSnapshot,
   startAfter,
+  where,
 } from 'firebase/firestore'
 import { store } from './firebase'
 import { COLLECTIONS } from '@/constants/collection'
@@ -31,4 +32,19 @@ export async function getCards(
   }))
 
   return { items, lastVisible }
+}
+
+export async function getSearCards(keyword: string) {
+  const searchQuery = query(
+    collection(store, COLLECTIONS.CARD),
+    where('name', '>=', keyword),
+    where('name', '<=', keyword + '\uf8ff'),
+  )
+
+  const cardSnapshot = await getDocs(searchQuery)
+
+  return cardSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as Card),
+  }))
 }
