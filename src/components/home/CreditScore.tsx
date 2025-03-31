@@ -1,12 +1,20 @@
-import CreditScoreChart from '@shared/CreditScoreChart'
-import Flex from '../shared/Flex'
-import Spacing from '../shared/Spacing'
 import Link from 'next/link'
-import Button from '../shared/Button'
-import Text from '../shared/Text'
-import Skeleton from '../shared/Skeleton'
+
+import CreditScoreChart from '@shared/CreditScoreChart'
+import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import Button from '@shared/Button'
+import Text from '@shared/Text'
+import Skeleton from '@shared/Skeleton'
+import useCredit from '../credit/hooks/useCredit'
 
 export default function CreditScore() {
+  const { data, isLoading } = useCredit()
+
+  if (isLoading) {
+    return <CreditScoreSkeleton />
+  }
+
   return (
     <div style={{ padding: 24 }}>
       <Flex justify="space-between" align="center">
@@ -20,7 +28,11 @@ export default function CreditScore() {
             <Button>내 신용점수 보러가기</Button>
           </Link>
         </Flex>
-        <CreditScoreChart width={80} height={80} score={100} />
+        <CreditScoreChart
+          width={80}
+          height={80}
+          score={data?.creditScore ?? 0}
+        />
       </Flex>
     </div>
   )
