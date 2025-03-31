@@ -18,8 +18,6 @@ export default function Terms({
     generateInitialValues(약관목록),
   )
 
-  console.log('🚀 ~ Terms ~ termsAgreements:', termsAgreements)
-
   const handleAgreement = (id: string, checked: boolean) => {
     setTermsAgreements((prevTerms) => {
       return prevTerms.map((term) =>

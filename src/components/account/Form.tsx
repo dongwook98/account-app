@@ -18,7 +18,6 @@ function Form({ onNext }: { onNext: (formValues: FormData) => void }) {
   const { register, formState, handleSubmit } = useForm<FormData>({
     mode: 'onBlur',
   })
-  console.log('🚀 ~ Form ~ formState:', formState.errors)
 
   const component = useCallback(
     (form: AccountForm) => {

@@ -5,14 +5,14 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 import withAuth from '@/hooks/withAuth'
-import ProgressBar from '@/components/shared/ProgressBar'
+import ProgressBar from '@shared/ProgressBar'
+import FullPageLoader from '@shared/FullPageLoader'
 import Terms from '@/components/account/Terms'
 import useUser from '@/hooks/useUser'
 import { createAccount, getAccount, getTerms, setTerms } from '@/remote/account'
-import { User } from '@/models/user'
 import Form from '@/components/account/Form'
-import { Account } from '@/models/account'
-import FullPageLoader from '@/components/shared/FullPageLoader'
+import { User } from '@models/user'
+import { Account } from '@models/account'
 
 const FixedBottomButton = dynamic(() => import('@shared/FixedBottomButton'))
 
@@ -47,7 +47,7 @@ function AccountNewPage({ initialStep }: { initialStep: number }) {
               ...formValues,
               accountNumber: Date.now(),
               balance: 0,
-              status: 'READY',
+              status: 'DONE',
               userId: user?.id as string,
             } as Account
 
